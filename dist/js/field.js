@@ -273,7 +273,7 @@ var render = function() {
     "a",
     {
       staticClass:
-        "cursor-pointer text-70 hover:text-primary mr-3 inline-flex items-center has-tooltip",
+        "cursor-pointer text-70 hover:text-primary mr-3 inline-flex items-center has-tooltip no-underline relative",
       attrs: {
         href: "#",
         "data-testid": "users-items-0-view-button",
@@ -307,7 +307,7 @@ var render = function() {
         "div",
         {
           staticClass:
-            "px-2 py-1 text-sm rounded-full no-underline text-white bg-primary"
+            "absolute px-2 py-1 rounded-full text-white text-xs bg-primary font-bold pin-t pin-l ml-4 -mt-3"
         },
         [_vm._v("1")]
       )

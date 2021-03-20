@@ -20,6 +20,7 @@ class CreateNotesTable extends Migration
             $table->foreignId('created_by')->nullable();
             $table->boolean('system')->default(0);
             $table->boolean('personal')->default(0);
+            $table->boolean('as_html')->default(0);
             $table->timestamps();
         });
     }

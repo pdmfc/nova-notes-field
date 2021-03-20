@@ -15,6 +15,17 @@ use PDMFC\NovaNotesField\Models\Note;
 trait ModelHasNotes
 {
     /**
+     * Initialize the Trait for the instance
+     */
+    public function initializeModelHasNotes(): void
+    {
+        $this->withCount['notes'] = static function ($query) {
+            $query->where('personal', false)
+                ->orWhere('created_by', 1); //TODO avoid loop on USER model
+        };
+    }
+
+    /**
      * @return MorphMany|Note
      */
     public function notes()

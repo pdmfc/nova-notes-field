@@ -2,6 +2,7 @@
 
 namespace PDMFC\NovaNotesField;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
@@ -12,15 +13,16 @@ class FieldServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      *
      * @return void
+     * @throws BindingResolutionException
      */
     public function boot(): void
     {
         Nova::serving(function (ServingNova $event) {
-            Nova::script('nova-notes-field', __DIR__.'/../dist/js/field.js');
-            Nova::style('nova-notes-field', __DIR__.'/../dist/css/field.css');
+            Nova::script('nova-notes-field', __DIR__ . '/../dist/js/field.js');
+            Nova::style('nova-notes-field', __DIR__ . '/../dist/css/field.css');
         });
 
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
 
     /**

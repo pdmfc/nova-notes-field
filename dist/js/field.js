@@ -269,9 +269,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 
 
@@ -280,7 +277,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     components: {
         Popper: __WEBPACK_IMPORTED_MODULE_0_vue_popperjs___default.a
     },
-    props: ['resourceName', 'field']
+    props: ['resourceName', 'field'],
+    data: function data() {
+        return {
+            newNote: ''
+        };
+    },
+
+    methods: {
+        onSubmit: function onSubmit() {
+            Nova.request().post('/nova-vendor/notes-field/new', {
+                note: this.newNote
+            });
+        }
+    }
 });
 
 /***/ }),
@@ -3535,40 +3545,59 @@ var render = function() {
     "popper",
     {
       attrs: {
-        trigger: "clickToOpen",
+        trigger: "clickToToggle",
         options: {
-          placement: "top",
+          placement: "left",
           modifiers: { offset: { offset: "0,10px" } }
         }
       }
     },
     [
-      _c("div", { staticClass: "popper" }, [
-        _c(
-          "div",
-          {
-            staticStyle: {
-              width: "400px",
-              height: "300px",
-              background: "#3c4655"
+      _c(
+        "div",
+        {
+          staticClass: "popper",
+          staticStyle: { width: "400px", height: "50px" }
+        },
+        [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.newNote,
+                expression: "newNote"
+              }
+            ],
+            attrs: { type: "text" },
+            domProps: { value: _vm.newNote },
+            on: {
+              keyup: function($event) {
+                if (
+                  !$event.type.indexOf("key") &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                ) {
+                  return null
+                }
+                return _vm.onSubmit($event)
+              },
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.newNote = $event.target.value
+              }
             }
-          },
-          [_vm._v("Opa")]
-        )
-      ]),
+          })
+        ]
+      ),
       _vm._v(" "),
       _c(
-        "a",
+        "div",
         {
           staticClass:
             "cursor-pointer text-70 hover:text-primary mr-3 inline-flex items-center has-tooltip no-underline relative",
-          attrs: {
-            slot: "reference",
-            href: "#",
-            "data-testid": "users-items-0-view-button",
-            dusk: "1-view-button",
-            "data-original-title": "null"
-          },
+          attrs: { slot: "reference" },
           slot: "reference"
         },
         [
@@ -3593,14 +3622,20 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass:
-                "absolute px-2 py-1 rounded-full text-white text-xs bg-primary font-bold pin-t pin-l ml-4 -mt-3"
-            },
-            [_vm._v("\n            " + _vm._s(_vm.field.value) + "\n        ")]
-          )
+          _vm.field.value > 0
+            ? _c(
+                "div",
+                {
+                  staticClass:
+                    "absolute px-2 py-1 rounded-full text-white text-xs bg-primary font-bold pin-t pin-l ml-4 -mt-3"
+                },
+                [
+                  _vm._v(
+                    "\n            " + _vm._s(_vm.field.value) + "\n        "
+                  )
+                ]
+              )
+            : _vm._e()
         ]
       )
     ]

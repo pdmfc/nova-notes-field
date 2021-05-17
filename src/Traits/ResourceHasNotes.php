@@ -12,5 +12,4 @@ use Laravel\Nova\Resource;
  */
 trait ResourceHasNotes
 {
-
 }

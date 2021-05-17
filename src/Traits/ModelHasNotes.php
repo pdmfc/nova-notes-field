@@ -19,9 +19,16 @@ trait ModelHasNotes
      */
     public function initializeModelHasNotes(): void
     {
-        $this->withCount['notes'] = static function ($query) {
+        // Avoid loop in the auth guard model (Usually App\Models\User)
+        // So we want the Guard's cached user
+        $userId = null;
+        if (method_exists(auth()->guard(), 'getUser')) {
+            $userId = optional(auth()->guard()->getUser())->getKey();
+        }
+
+        $this->withCount['notes'] = static function ($query) use ($userId) {
             $query->where('personal', false)
-                ->orWhere('created_by', 1); //TODO avoid loop on USER model
+                ->orWhere('created_by', $userId);
         };
     }
 

@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use PDMFC\NovaNotesField\Http\Controllers\NotesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +14,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('new', function (Request $request) {
-    \PDMFC\NovaNotesField\Models\Note::create();
-});
+Route::post('new', [NotesController::class, 'post']);

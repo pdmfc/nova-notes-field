@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use PDMFC\NovaNotesField\Http\Controllers\NotesController;
+use PDMFC\NovaNotesField\Http\Controllers\NoteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,4 +14,4 @@ use PDMFC\NovaNotesField\Http\Controllers\NotesController;
 |
 */
 
-Route::post('new', [NotesController::class, 'post']);
+Route::post('new', [NoteController::class, 'store']);

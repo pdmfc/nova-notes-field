@@ -37,7 +37,9 @@ export default {
     methods: {
         onSubmit() {
             Nova.request().post('/nova-vendor/notes-field/new', {
-                note: this.newNote
+                note: this.newNote,
+                notable_id: this.field.notable_id,
+                notable_type: this.field.notable_type
             })
         }
     }

@@ -269,6 +269,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -280,16 +285,50 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: ['resourceName', 'field'],
     data: function data() {
         return {
-            newNote: ''
+            popperOptions: {
+                placement: 'left',
+                modifiers: {
+                    offset: { offset: '0,10px' }
+                }
+            },
+            newNote: '',
+            notes: [],
+            notesCount: 0,
+            loaded: false
         };
+    },
+    mounted: function mounted() {
+        this.notesCount = this.field.value;
     },
 
     methods: {
         onSubmit: function onSubmit() {
+            var _this = this;
+
             Nova.request().post('/nova-vendor/notes-field/new', {
                 note: this.newNote,
                 notable_id: this.field.notable_id,
                 notable_type: this.field.notable_type
+            }).then(function (_ref) {
+                var data = _ref.data;
+
+                _this.notes.push(data);
+                _this.notesCount = _this.notes.length;
+                _this.newNote = '';
+            });
+        },
+        loadNotes: function loadNotes() {
+            var _this2 = this;
+
+            if (this.loaded) {
+                return;
+            }
+            Nova.request().get('/nova-vendor/notes-field?notable_id=' + this.field.notable_id + '&notable_type=' + this.field.notable_type).then(function (_ref2) {
+                var data = _ref2.data;
+
+                _this2.notes = data;
+                _this2.notesCount = _this2.notes.length;
+                _this2.loaded = true;
             });
         }
     }
@@ -3548,20 +3587,23 @@ var render = function() {
     {
       attrs: {
         trigger: "clickToToggle",
-        options: {
-          placement: "left",
-          modifiers: { offset: { offset: "0,10px" } }
-        }
+        "append-to-body": "",
+        options: _vm.popperOptions
       }
     },
     [
       _c(
         "div",
-        {
-          staticClass: "popper",
-          staticStyle: { width: "400px", height: "50px" }
-        },
+        { staticClass: "popper", staticStyle: { width: "400px" } },
         [
+          _vm._l(_vm.notes, function(note) {
+            return _c("div", [
+              _vm._v("\n            " + _vm._s(note.note)),
+              _c("br"),
+              _vm._v("\n            " + _vm._s(note.created_at) + "\n        ")
+            ])
+          }),
+          _vm._v(" "),
           _c("input", {
             directives: [
               {
@@ -3591,7 +3633,8 @@ var render = function() {
               }
             }
           })
-        ]
+        ],
+        2
       ),
       _vm._v(" "),
       _c(
@@ -3600,6 +3643,7 @@ var render = function() {
           staticClass:
             "cursor-pointer text-70 hover:text-primary mr-3 inline-flex items-center has-tooltip no-underline relative",
           attrs: { slot: "reference" },
+          on: { click: _vm.loadNotes },
           slot: "reference"
         },
         [
@@ -3624,7 +3668,7 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm.field.value > 0
+          _vm.notesCount > 0
             ? _c(
                 "div",
                 {
@@ -3633,7 +3677,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\n            " + _vm._s(_vm.field.value) + "\n        "
+                    "\n            " + _vm._s(_vm.notesCount) + "\n        "
                   )
                 ]
               )

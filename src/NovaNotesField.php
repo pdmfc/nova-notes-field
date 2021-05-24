@@ -24,6 +24,8 @@ class NovaNotesField extends Field
     {
         parent::__construct($name, $attribute, $resolveCallback);
 
+        $this->fillCallback = function () {};
+
         $this->attribute = 'notes_count';
     }
 

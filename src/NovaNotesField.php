@@ -40,7 +40,7 @@ class NovaNotesField extends Field
         if ($resource = $this->resource) {
             return array_merge(parent::meta(), [
                 'notable_id' => $resource->getKey(),
-                'notable_type' => get_class($resource)
+                'notable_type' => get_class($resource),
             ]);
         }
 

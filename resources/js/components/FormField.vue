@@ -20,7 +20,6 @@ export default {
   mixins: [FormField, HandlesValidationErrors],
 
   props: ['resourceName', 'resourceId', 'field'],
-
   methods: {
     /*
      * Set the initial, internal value for the field.

@@ -1,10 +1,13 @@
 <template>
-    <popper trigger="clickToToggle" append-to-body :options="popperOptions">
-        <div class="popper flex" style="width: 400px; height: 450px;">
+    <popper trigger="clickToToggle"
+            append-to-body
+            boundaries-selector="body"
+            :options="popperOptions">
+        <div class="popper flex">
             <div
                 class="bg-white flex-1 flex flex-col shadow rounded-lg divide-y divide-gray-200"
             >
-                <div class="overflow-y-auto flex-grow flex px-4 py-5">
+                <div class="overflow-y-auto flex-grow flex px-4 py-5" style="width: 400px; height: 400px; max-height: 400px; max-width:400px;">
                     <notes :notes="notes"></notes>
                 </div>
                 <div class="bg-gray-50 p-4">
@@ -51,37 +54,37 @@ export default {
     components: {
         Popper,
         Notes,
-        InputField,
+        InputField
     },
     props: ['resourceName', 'field'],
-    data() {
+    data () {
         return {
             popperOptions: {
                 placement: 'left',
                 modifiers: {
-                    offset: { offset: '0,10px' },
-                },
+                    offset: {offset: '0, 10px'}
+                }
             },
             newNote: '',
             notes: [],
             loaded: false,
             notesCount: 0,
-            errors: [],
+            errors: []
         };
     },
-    mounted() {
+    mounted () {
         this.notesCount = this.field.value;
     },
     methods: {
-        onSubmit() {
+        onSubmit () {
             this.errors = [];
             Nova.request()
                 .post('/nova-vendor/notes-field/new', {
                     note: this.newNote,
                     notable_id: this.field.notable_id,
-                    notable_type: this.field.notable_type,
+                    notable_type: this.field.notable_type
                 })
-                .then(({ data }) => {
+                .then(({data}) => {
                     this.notes.push(data);
                     this.notesCount = this.notes.length;
                     this.newNote = '';
@@ -90,7 +93,7 @@ export default {
                     this.errors = e.response.data.errors.note;
                 });
         },
-        loadNotes() {
+        loadNotes () {
             if (this.loaded) {
                 return;
             }
@@ -98,15 +101,15 @@ export default {
                 .get(
                     `/nova-vendor/notes-field?notable_id=${this.field.notable_id}&notable_type=${this.field.notable_type}`
                 )
-                .then(({ data }) => {
+                .then(({data}) => {
                     this.notes = data;
                     this.notesCount = this.notes.length;
                     this.loaded = true;
                     this.errors = [];
                 });
-        },
-    },
+        }
+    }
 };
 </script>
 
-<style lang="css" scoped src="../../assets/tailwind.css"></style>
+<style lang="css" scoped src="../../sass/tailwind.css"></style>

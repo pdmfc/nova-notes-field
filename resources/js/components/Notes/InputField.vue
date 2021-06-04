@@ -51,4 +51,4 @@ export default {
 };
 </script>
 
-<style lang="css" scoped src="../../../assets/tailwind.css"></style>
+<style lang="css" scoped src="../../../sass/tailwind.css"></style>

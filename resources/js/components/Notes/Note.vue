@@ -7,7 +7,8 @@
             <h4 class="text-lg font-bold">Utilizador</h4>
             <p class="mt-1">
                 {{ data.note }} <br>
-                {{ data.created_at }}
+                {{ moment(data.created_at).fromNow() }} -
+                {{ moment(data.created_at).format('DD/MM/YY HH:mm') }}
             </p>
 
             <div class="mt-6 flex">
@@ -42,15 +43,26 @@
 </template>
 
 <script>
+import moment from 'moment'
+import locales from 'moment/locale/pt'
+
+const a = 1
+
 export default {
     props: {
         data: {
             type: Array,
             required: true
         }
+    },
+    created () {
+        this.moment().locale('pt', pt) // TODO: Nova.confiig.locale
+    },
+    methods: {
+        moment
     }
 }
 </script>
 
-<style lang="css" scoped src="../../../assets/tailwind.css">>
+<style lang="css" scoped src="../../../sass/tailwind.css">>
 </style>

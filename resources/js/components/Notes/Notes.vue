@@ -27,6 +27,6 @@ export default {
     }
 }
 </script>
-<style scoped src="../../../assets/tailwind.css">>
+<style scoped src="../../../sass/tailwind.css">>
 
 </style>

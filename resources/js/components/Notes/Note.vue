@@ -7,8 +7,7 @@
             <h4 class="text-lg font-bold">Utilizador</h4>
             <p class="mt-1">
                 {{ data.note }} <br>
-                {{ moment(data.created_at).fromNow() }} -
-                {{ moment(data.created_at).format('DD/MM/YY HH:mm') }}
+                {{ createdAt }}
             </p>
 
             <div class="mt-6 flex">
@@ -43,10 +42,8 @@
 </template>
 
 <script>
-import moment from 'moment'
-import locales from 'moment/locale/pt'
 
-const a = 1
+import moment from 'moment/min/moment-with-locales'
 
 export default {
     props: {
@@ -56,10 +53,13 @@ export default {
         }
     },
     created () {
-        this.moment().locale('pt', pt) // TODO: Nova.confiig.locale
+        moment.locale(Nova.config.locale) // TODO: Nova.config.locale
+        console.log(moment.locale())
     },
-    methods: {
-        moment
+    computed: {
+        createdAt() {
+            return `${moment(this.data.created_at).fromNow()} - ${moment(this.data.created_at).format('DD/MM/YY HH:mm')}`
+        }
     }
 }
 </script>

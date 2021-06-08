@@ -5,7 +5,7 @@
             :options="popperOptions">
         <div class="popper flex">
             <div
-                class="bg-white flex-1 flex flex-col shadow rounded-lg divide-y divide-gray-200"
+                class="bg-white flex-1 flex flex-col rounded-lg divide-y divide-gray-200"
             >
                 <div class="overflow-y-auto flex-grow flex px-4 py-5" style="width: 400px; height: 400px; max-height: 400px; max-width:400px;">
                     <notes :notes="notes"></notes>
@@ -47,6 +47,7 @@
 <script>
 import Popper from 'vue-popperjs';
 import 'vue-popperjs/dist/vue-popper.css';
+import '../../sass/tailwind.css';
 import Notes from './Notes/Notes.vue';
 import InputField from './Notes/InputField.vue';
 
@@ -112,4 +113,12 @@ export default {
 };
 </script>
 
-<style lang="css" scoped src="../../sass/tailwind.css"></style>
+<style scoped>
+.popper {
+    -moz-box-shadow: 0 2px 4px 0 rgb(0 0 0 / 5%) !important;
+    -webkit-box-shadow: 0 2px 4px 0 rgb(0 0 0 / 5%) !important;
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 5%) !important;
+    border: 0 !important;
+    padding: 0 !important;
+}
+</style>

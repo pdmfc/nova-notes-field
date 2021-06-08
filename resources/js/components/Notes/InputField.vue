@@ -6,7 +6,7 @@
         <div class="mt-1 flex flex-wrap flex-row space-x-4">
             <input
                 @input="handleInput($event.target.value)"
-                @keyup.enter="emitMessage"
+                @keyup.enter="handleInsertMessage"
                 :value="value"
                 type="text"
                 :class="errorClass"

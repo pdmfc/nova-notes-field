@@ -3,7 +3,7 @@
             append-to-body
             boundaries-selector="body"
             :options="popperOptions">
-        <div class="popper flex">
+        <div class="flex">
             <div
                 class="bg-white flex-1 flex flex-col rounded-lg divide-y divide-gray-200"
             >
@@ -46,7 +46,6 @@
 
 <script>
 import Popper from 'vue-popperjs';
-import 'vue-popperjs/dist/vue-popper.css';
 import Notes from './Notes/Notes.vue';
 import InputField from './Notes/InputField.vue';
 
@@ -113,13 +112,6 @@ export default {
 </script>
 
 <style scoped>
-    .popper {
-        -moz-box-shadow: 0 2px 4px 0 rgb(0 0 0 / 5%) !important;
-        -webkit-box-shadow: 0 2px 4px 0 rgb(0 0 0 / 5%) !important;
-        box-shadow: 0 2px 4px 0 rgb(0 0 0 / 5%) !important;
-        border: 0 !important;
-        padding: 0 !important;
-    }
 </style>
 
 <style scoped src="../../sass/tailwind.css"></style>

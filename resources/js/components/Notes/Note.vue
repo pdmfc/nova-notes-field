@@ -53,8 +53,7 @@ export default {
         }
     },
     created () {
-        moment.locale(Nova.config.locale) // TODO: Nova.config.locale
-        console.log(moment.locale())
+        moment.locale(Nova.config.locale)
     },
     computed: {
         createdAt() {
@@ -64,5 +63,4 @@ export default {
 }
 </script>
 
-<style lang="css" scoped src="../../../sass/tailwind.css">>
-</style>
+<style scoped src="../../../sass/tailwind.css"></style>

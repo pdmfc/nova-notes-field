@@ -47,7 +47,6 @@
 <script>
 import Popper from 'vue-popperjs';
 import 'vue-popperjs/dist/vue-popper.css';
-import '../../sass/tailwind.css';
 import Notes from './Notes/Notes.vue';
 import InputField from './Notes/InputField.vue';
 
@@ -114,11 +113,13 @@ export default {
 </script>
 
 <style scoped>
-.popper {
-    -moz-box-shadow: 0 2px 4px 0 rgb(0 0 0 / 5%) !important;
-    -webkit-box-shadow: 0 2px 4px 0 rgb(0 0 0 / 5%) !important;
-    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 5%) !important;
-    border: 0 !important;
-    padding: 0 !important;
-}
+    .popper {
+        -moz-box-shadow: 0 2px 4px 0 rgb(0 0 0 / 5%) !important;
+        -webkit-box-shadow: 0 2px 4px 0 rgb(0 0 0 / 5%) !important;
+        box-shadow: 0 2px 4px 0 rgb(0 0 0 / 5%) !important;
+        border: 0 !important;
+        padding: 0 !important;
+    }
 </style>
+
+<style scoped src="../../sass/tailwind.css"></style>

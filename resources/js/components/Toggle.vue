@@ -23,7 +23,7 @@ export default {
     data(){
         return  {
 
-            isPrivate:true,
+            isPrivate:false,
 
 
         }
@@ -79,5 +79,3 @@ export default {
     transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
 }
 </style>
-
-

@@ -5,7 +5,7 @@
           </div>
           <div>
             <h4 class="text-lg font-bold">Utilizador</h4>
-            <p class="mt-1">
+            <p class="mt-12">
                 {{ data.note }} <br>
                 {{ createdAt }}
             </p>
@@ -63,4 +63,4 @@ export default {
 }
 </script>
 
-<style scoped src="../../../sass/tailwind.css"></style>
+<style scoped src="../../../sass/field.css"></style>

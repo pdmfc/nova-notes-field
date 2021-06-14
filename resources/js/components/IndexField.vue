@@ -114,4 +114,4 @@ export default {
 <style scoped>
 </style>
 
-<style scoped src="../../sass/tailwind.css"></style>
+<style scoped src="../../sass/field.css"></style>

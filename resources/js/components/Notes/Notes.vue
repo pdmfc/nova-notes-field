@@ -28,4 +28,4 @@ export default {
 }
 </script>
 
-<style scoped src="../../../sass/tailwind.css"></style>
+<style scoped src="../../../sass/field.css"></style>

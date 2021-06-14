@@ -10,3 +10,4 @@ phpunit.xml
 Thumbs.db
 yarn-debug.log*
 yarn-error.log*
+mix-manifest.json

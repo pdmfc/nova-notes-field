@@ -13,12 +13,10 @@
                 class="py-2 px-3 flex-1 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-md border"
                 placeholder="Write your thoughts..."
             />
-            <button
-                @click="handleInsertMessage"
-                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-400 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-                Send
-            </button>
+            <div class="flex-no-shrink ml-auto">
+                <a class=" btn btn-default btn-primary text-white cursor-pointer" @click="handleInsertMessage">Send</a>
+
+            </div>
         </div>
     </div>
 </template>

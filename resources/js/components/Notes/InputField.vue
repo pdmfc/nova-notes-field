@@ -1,5 +1,6 @@
 <template lang="html">
     <div class="flex flex-col">
+        <toggle></toggle>
         <div class="flex flex-col space-y-2 " v-if="errors.length > 0">
             <p class="text-red-500" v-for="error in errors">{{ error }}</p>
         </div>
@@ -22,7 +23,10 @@
 </template>
 
 <script>
+import Toggle from '../Toggle.vue';
+
 export default {
+    components: { Toggle },
     props: {
         value: {
             type: String,

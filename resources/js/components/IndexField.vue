@@ -11,7 +11,6 @@
                     <notes :notes="notes"></notes>
                 </div>
                 <div class="bg-gray-50 p-4">
-                    <toggle></toggle>
                     <input-field
                         v-model="newNote"
                         @insert-message="onSubmit"
@@ -49,15 +48,13 @@
 import Popper from 'vue-popperjs';
 import Notes from './Notes/Notes.vue';
 import InputField from './Notes/InputField.vue';
-import Toggle from './Toggle.vue';
 export default {
     components: {
         Popper,
         Notes,
-        InputField,
-        Toggle
+        InputField
     },
-    props: ['resourceName', 'field', 'toggle-type'],
+    props: ['resourceName', 'field'],
     data () {
         return {
             popperOptions: {
@@ -77,13 +74,13 @@ export default {
         this.notesCount = this.field.value;
     },
     methods: {
-        onSubmit () {
+        onSubmit() {
             this.errors = [];
             Nova.request()
                 .post('/nova-vendor/notes-field/new', {
                     note: this.newNote,
                     notable_id: this.field.notable_id,
-                    notable_type: this.field.notable_type
+                    notable_type: this.field.notable_type,
                 })
                 .then(({data}) => {
                     this.notes.push(data);
@@ -95,7 +92,7 @@ export default {
                 });
         },
 
-        loadNotes () {
+        loadNotes() {
             if (this.loaded) {
                 return;
             }

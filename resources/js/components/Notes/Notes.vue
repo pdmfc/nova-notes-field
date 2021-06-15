@@ -1,6 +1,6 @@
 <template>
         <div class="flex flex-grow">
-            <div v-if="notes.length === 0" class="self-center block w-full">
+            <div v-if="notes.length === 0" class="self-center text-center block w-full">
                 <h2 class="text-xl font-semibold opacity-50">No notes found...</h2>
             </div>
             <ul class="space-y-4 flex-grow">

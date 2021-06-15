@@ -3,7 +3,11 @@
     <div>
         <h3 class="mb-4 text-lg font-semibold text-gray-900">Comments</h3>
         <notes :notes="notes"></notes>
-        <input-field v-model="newNote" @insert-message="onSubmit"></input-field>
+        <input-field
+            v-model="newNote"
+            @insert-message="onSubmit"
+            :errors="errors"
+        ></input-field>
     </div>
 </template>
 
@@ -22,6 +26,7 @@ export default {
             newNote: '',
             notes: [],
             notesCount: 0,
+            errors: []
         };
     },
     mounted() {
@@ -29,16 +34,20 @@ export default {
     },
     methods: {
         onSubmit() {
+            this.errors = [];
             Nova.request()
                 .post('/nova-vendor/notes-field/new', {
                     note: this.newNote,
                     notable_id: this.field.notable_id,
-                    notable_type: this.field.notable_type,
+                    notable_type: this.field.notable_type
                 })
-                .then(({ data }) => {
+                .then(({data}) => {
                     this.notes.push(data);
                     this.notesCount = this.notes.length;
                     this.newNote = '';
+                })
+                .catch(e => {
+                    this.errors = e.response.data.errors.note;
                 });
         },
         loadNotes() {

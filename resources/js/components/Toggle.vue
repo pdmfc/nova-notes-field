@@ -22,10 +22,7 @@
 export default {
     data(){
         return  {
-
             isPrivate:false,
-
-
         }
 
     },

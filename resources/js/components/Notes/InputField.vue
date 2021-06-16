@@ -16,7 +16,6 @@
             />
             <div class="flex-no-shrink ml-auto">
                 <a class=" btn btn-default btn-primary text-white cursor-pointer" @click="handleInsertMessage">Send</a>
-
             </div>
         </div>
     </div>

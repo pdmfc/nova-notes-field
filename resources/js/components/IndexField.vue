@@ -11,6 +11,8 @@
                     <notes :notes="notes"></notes>
                 </div>
                 <div class="bg-gray-50 p-4">
+
+                    <note-form></note-form>
                     <input-field
                         v-model="newNote"
                         @insert-message="onSubmit"
@@ -48,8 +50,10 @@
 import Popper from 'vue-popperjs';
 import Notes from './Notes/Notes.vue';
 import InputField from './Notes/InputField.vue';
+import NoteForm from './Notes/NoteForm'
 export default {
     components: {
+        NoteForm,
         Popper,
         Notes,
         InputField

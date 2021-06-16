@@ -3,7 +3,7 @@
             append-to-body
             boundaries-selector="body"
             :options="popperOptions">
-        <div class="popper flex">
+        <div class="flex">
             <div
                 class="bg-white flex-1 flex flex-col rounded-lg divide-y divide-gray-200"
             >
@@ -46,11 +46,8 @@
 
 <script>
 import Popper from 'vue-popperjs';
-import 'vue-popperjs/dist/vue-popper.css';
-import '../../sass/tailwind.css';
 import Notes from './Notes/Notes.vue';
 import InputField from './Notes/InputField.vue';
-
 export default {
     components: {
         Popper,
@@ -77,13 +74,13 @@ export default {
         this.notesCount = this.field.value;
     },
     methods: {
-        onSubmit () {
+        onSubmit() {
             this.errors = [];
             Nova.request()
                 .post('/nova-vendor/notes-field/new', {
                     note: this.newNote,
                     notable_id: this.field.notable_id,
-                    notable_type: this.field.notable_type
+                    notable_type: this.field.notable_type,
                 })
                 .then(({data}) => {
                     this.notes.push(data);
@@ -94,7 +91,8 @@ export default {
                     this.errors = e.response.data.errors.note;
                 });
         },
-        loadNotes () {
+
+        loadNotes() {
             if (this.loaded) {
                 return;
             }
@@ -114,11 +112,6 @@ export default {
 </script>
 
 <style scoped>
-.popper {
-    -moz-box-shadow: 0 2px 4px 0 rgb(0 0 0 / 5%) !important;
-    -webkit-box-shadow: 0 2px 4px 0 rgb(0 0 0 / 5%) !important;
-    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 5%) !important;
-    border: 0 !important;
-    padding: 0 !important;
-}
 </style>
+
+<style scoped src="../../sass/field.css"></style>

@@ -1,5 +1,6 @@
 <template lang="html">
     <div class="flex flex-col">
+        <toggle></toggle>
         <div class="flex flex-col space-y-2 " v-if="errors.length > 0">
             <p class="text-red-500" v-for="error in errors">{{ error }}</p>
         </div>
@@ -13,18 +14,19 @@
                 class="py-2 px-3 flex-1 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-md border"
                 placeholder="Write your thoughts..."
             />
-            <button
-                @click="handleInsertMessage"
-                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-400 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-                Send
-            </button>
+            <div class="flex-no-shrink ml-auto">
+                <a class=" btn btn-default btn-primary text-white cursor-pointer" @click="handleInsertMessage">Send</a>
+
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import Toggle from '../Toggle.vue';
+
 export default {
+    components: { Toggle },
     props: {
         value: {
             type: String,
@@ -51,4 +53,4 @@ export default {
 };
 </script>
 
-<style lang="css" scoped src="../../../sass/tailwind.css"></style>
+<style scoped src="../../../sass/field.css"></style>

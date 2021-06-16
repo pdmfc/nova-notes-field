@@ -37,3 +37,5 @@ export default {
   },
 }
 </script>
+
+<style scoped src="../../sass/field.css"></style>

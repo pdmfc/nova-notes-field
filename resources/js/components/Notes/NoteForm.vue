@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Toggle from '../Toggle.vue';
+import Toggle from './Toggle.vue';
 import InputField from './InputField'
 
 export default {

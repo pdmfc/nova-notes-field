@@ -22,10 +22,7 @@
 </template>
 
 <script>
-import Toggle from '../Toggle.vue';
-
 export default {
-    components: { Toggle },
     props: {
         value: {
             type: String,

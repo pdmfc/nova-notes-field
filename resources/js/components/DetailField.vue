@@ -55,13 +55,16 @@ export default {
                 return;
             }
             Nova.request()
-                .get(
-                    `/nova-vendor/notes-field?notable_id=${this.field.notable_id}&notable_type=${this.field.notable_type}`
-                )
-                .then(({ data }) => {
+                .get( '/nova-vendor/notes-field/', {
+                    params: {
+                        notable_id: this.field.notable_id,
+                        notable_type: this.field.notable_type
+                    }
+                })
+                .then(({data}) => {
                     this.notes = data;
                     this.notesCount = this.notes.length;
-                    this.loaded = true;
+                    this.errors = [];
                 });
         },
     },

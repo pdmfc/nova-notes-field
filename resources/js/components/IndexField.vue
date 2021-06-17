@@ -71,7 +71,7 @@ export default {
             notes: [],
             loaded: false,
             notesCount: 0,
-            errors: []
+            errors: [],
         };
     },
     mounted () {
@@ -84,7 +84,7 @@ export default {
                 .post('/nova-vendor/notes-field/new', {
                     note: this.newNote,
                     notable_id: this.field.notable_id,
-                    notable_type: this.field.notable_type,
+                    notable_type: this.field.notable_type
                 })
                 .then(({data}) => {
                     this.notes.push(data);
@@ -101,9 +101,12 @@ export default {
                 return;
             }
             Nova.request()
-                .get(
-                    `/nova-vendor/notes-field?notable_id=${this.field.notable_id}&notable_type=${this.field.notable_type}`
-                )
+                .get( '/nova-vendor/notes-field/', {
+                    params: {
+                        notable_id: this.field.notable_id,
+                        notable_type: this.field.notable_type
+                    }
+                })
                 .then(({data}) => {
                     this.notes = data;
                     this.notesCount = this.notes.length;

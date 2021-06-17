@@ -14,6 +14,7 @@ class NoteController extends Controller
     {
         $notes = Note::where('notable_type', $request->input('notable_type'))
             ->where('notable_id', $request->input('notable_id'))
+            ->with('author')
             ->get();
 
         return response()->json($notes);
@@ -21,7 +22,13 @@ class NoteController extends Controller
 
     public function store(NoteRequest $request): JsonResponse
     {
-        $note = Note::create($request->validated());
+        $validated = $request->validated();
+        $note = Note::create([
+            'note' => $validated['note'],
+            'notable_id' => $validated['notable_id'],
+            'notable_type' => $validated['notable_type'],
+            'created_by' => auth()->user()->id
+        ])->load('author');
 
         return response()->json($note);
     }

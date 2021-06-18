@@ -31,7 +31,7 @@ import moment from 'moment/min/moment-with-locales'
 export default {
     props: {
         data: {
-            type: Array,
+            type: Object,
             required: true
         }
     },

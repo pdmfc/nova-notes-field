@@ -1,23 +1,25 @@
 <template>
-    <popper trigger="clickToToggle"
-            append-to-body
-            boundaries-selector="body"
-            :options="popperOptions">
+    <popper
+        trigger="clickToToggle"
+        append-to-body
+        boundaries-selector="body"
+        :options="popperOptions"
+    >
         <div class="flex">
             <div
                 class="bg-white flex-1 flex flex-col rounded-lg divide-y divide-gray-200"
             >
-                <div class="overflow-y-auto flex-grow flex px-4 py-5" style="width: 400px; height: 400px; max-height: 400px; max-width:400px;">
+                <div
+                    class="overflow-y-auto flex-grow flex px-4 py-5"
+                    style="width: 400px; height: 400px; max-height: 400px; max-width:400px;"
+                >
                     <notes :notes="notes"></notes>
                 </div>
                 <div class="bg-gray-50 p-4">
-
-                    <note-form></note-form>
-                    <input-field
-                        v-model="newNote"
-                        @insert-message="onSubmit"
-                        :errors="errors"
-                    ></input-field>
+                    <note-form
+                        @note-submit="pushNotes($event)"
+                        :field="field"
+                    ></note-form>
                 </div>
             </div>
         </div>
@@ -49,76 +51,58 @@
 <script>
 import Popper from 'vue-popperjs';
 import Notes from './Notes/Notes.vue';
-import InputField from './Notes/InputField.vue';
-import NoteForm from './Notes/NoteForm'
+import NoteForm from './Notes/NoteForm';
+
 export default {
     components: {
-        NoteForm,
         Popper,
         Notes,
-        InputField
+        NoteForm,
     },
     props: ['resourceName', 'field'],
-    data () {
+    data() {
         return {
             popperOptions: {
                 placement: 'left',
                 modifiers: {
-                    offset: {offset: '0, 10px'}
-                }
+                    offset: { offset: '0, 10px' },
+                },
             },
             newNote: '',
             notes: [],
             loaded: false,
-            notesCount: 0,
-            errors: [],
+            notesCount: 0
         };
     },
-    mounted () {
+    mounted() {
         this.notesCount = this.field.value;
     },
     methods: {
-        onSubmit() {
-            this.errors = [];
-            Nova.request()
-                .post('/nova-vendor/notes-field/new', {
-                    note: this.newNote,
-                    notable_id: this.field.notable_id,
-                    notable_type: this.field.notable_type
-                })
-                .then(({data}) => {
-                    this.notes.push(data);
-                    this.notesCount = this.notes.length;
-                    this.newNote = '';
-                })
-                .catch(e => {
-                    this.errors = e.response.data.errors.note;
-                });
-        },
-
         loadNotes() {
             if (this.loaded) {
                 return;
             }
             Nova.request()
-                .get( '/nova-vendor/notes-field/', {
+                .get('/nova-vendor/notes-field/', {
                     params: {
                         notable_id: this.field.notable_id,
-                        notable_type: this.field.notable_type
-                    }
+                        notable_type: this.field.notable_type,
+                    },
                 })
-                .then(({data}) => {
+                .then(({ data }) => {
                     this.notes = data;
                     this.notesCount = this.notes.length;
                     this.loaded = true;
-                    this.errors = [];
                 });
+        },
+        pushNotes(data) {
+            this.notes.push(data)
+            this.notesCount = this.notes.length
         }
-    }
+    },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
 
 <style scoped src="../../sass/field.css"></style>

@@ -5,7 +5,8 @@
         <notes :notes="notes"></notes>
         <note-form
             @note-submit="pushNotes($event)"
-            :field="field"
+            :notable_id="field.notable_id"
+            :notable_type="field.notable_type"
         ></note-form>
     </div>
 </template>

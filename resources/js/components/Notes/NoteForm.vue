@@ -8,6 +8,7 @@
             </div>
             <div class="mt-1 flex flex-wrap flex-row space-x-4">
                 <input-field
+                    class="flex-1"
                     v-model="newNote"
                     @enter="onSubmit"
                     :hasError="errors.length > 0"
@@ -33,7 +34,16 @@ export default {
         Toggle,
         InputField
     },
-    props : ['field'],
+    props : {
+        notable_id: {
+            type: Number,
+            required: true
+        },
+        notable_type: {
+            type: String,
+            required: true
+        }
+    },
     data() {
         return {
             isPrivate: false,
@@ -58,8 +68,8 @@ export default {
             Nova.request()
                 .post('/nova-vendor/notes-field/new', {
                     note: this.newNote,
-                    notable_id: this.field.notable_id,
-                    notable_type: this.field.notable_type,
+                    notable_id: this.notable_id,
+                    notable_type: this.notable_type,
                 })
                 .then(({ data }) => {
                     this.$emit('note-submit', data)

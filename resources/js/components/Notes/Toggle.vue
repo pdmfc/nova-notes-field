@@ -6,7 +6,6 @@
             <input
                 type="checkbox"
                 name="toggle"
-                id="toggle"
                 v-model="inputValue"
                 @input="onInput"
                 class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"

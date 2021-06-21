@@ -275,6 +275,12 @@ __webpack_require__.r(__webpack_exports__);
       "default": '',
       required: true
     },
+    placeholder: {
+      type: String,
+      "default": function _default() {
+        return 'Write your thoughts...';
+      }
+    },
     hasError: {
       type: Boolean
     }
@@ -394,7 +400,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -428,7 +433,6 @@ __webpack_require__.r(__webpack_exports__);
     onSubmit: function onSubmit() {
       var _this = this;
 
-      console.log(this.newNote);
       this.errors = [];
       Nova.request().post('/nova-vendor/notes-field/new', {
         note: this.newNote,
@@ -502,7 +506,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-//
 //
 //
 //
@@ -602,17 +605,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: {
-    value: {
-      type: "",
-      required: true
-    }
-  },
-  data: function data() {
-    return {
-      text: ""
-    };
-  },
   methods: {
     setTextToTrix: function setTextToTrix() {
       this.text = this.$refs.inputEl.value;
@@ -70756,7 +70748,7 @@ var render = function() {
     staticClass:
       "py-2 px-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-md border",
     class: _vm.errorClass,
-    attrs: { type: "text", placeholder: "Write your thoughts..." },
+    attrs: { type: "text", placeholder: _vm.placeholder },
     domProps: { value: _vm.value },
     on: {
       input: function($event) {
@@ -70963,7 +70955,7 @@ var render = function() {
                 )
               : _c("input-field", {
                   staticClass: "flex-1",
-                  attrs: { id: "input-trix", hasError: _vm.errors.length > 0 },
+                  attrs: { hasError: _vm.errors.length > 0 },
                   on: { enter: _vm.onSubmit },
                   model: {
                     value: _vm.newNote,
@@ -71076,7 +71068,7 @@ var render = function() {
           staticClass:
             "toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer",
           style: _vm.toggleStyle,
-          attrs: { type: "checkbox", name: "toggle", id: "toggle" },
+          attrs: { type: "checkbox", name: "toggle" },
           domProps: {
             checked: Array.isArray(_vm.inputValue)
               ? _vm._i(_vm.inputValue, null) > -1
@@ -71143,25 +71135,8 @@ var render = function() {
     "div",
     [
       _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.text,
-            expression: "text"
-          }
-        ],
         ref: "inputEl",
-        attrs: { type: "hidden", id: "input-trix", name: "content" },
-        domProps: { value: _vm.text },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.text = $event.target.value
-          }
-        }
+        attrs: { type: "hidden", id: "input-trix", name: "content" }
       }),
       _vm._v(" "),
       _c("trix-editor", { attrs: { input: "input-trix" } })

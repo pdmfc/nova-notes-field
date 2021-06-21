@@ -12,7 +12,6 @@
                 </div>
                 <input-field v-else
                     class="flex-1"
-                    id="input-trix"
                     v-model="newNote"
                     @enter="onSubmit"
                     :hasError="errors.length > 0"
@@ -61,7 +60,6 @@ export default {
     computed: {},
     methods: {
         onSubmit() {
-            console.log(this.newNote);
             this.errors = [];
             Nova.request()
                 .post('/nova-vendor/notes-field/new', {

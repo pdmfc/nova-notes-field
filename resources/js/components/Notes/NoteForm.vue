@@ -1,7 +1,9 @@
 <template lang="html">
     <div class="flex flex-col">
-        <toggle v-model="isPrivate" icon="olho"></toggle>
-        <toggle v-model="richText" icon="texto"></toggle>
+        <toggle v-model="isPrivate" icon="private"></toggle>
+        <toggle v-model="richText" icon="richText"></toggle>
+        <!-- <toggle v-model="richText"></toggle>
+        <toggle no-icons></toggle> -->
         <div class="flex flex-col">
             <div class="flex flex-col space-y-2 " v-if="errors.length > 0">
                 <p class="text-red-500" v-for="error in errors">{{ error }}</p>
@@ -13,13 +15,12 @@
                     @enter="onSubmit"
                     :hasError="errors.length > 0"
                 ></input-field>
-                <div class="flex-no-shrink ml-auto">
-                    <a
-                        class=" btn btn-default btn-primary text-white cursor-pointer"
-                        @click="onSubmit"
-                        >Send</a
-                    >
-                </div>
+                <a
+                    class="flex-shrink-0 btn btn-default btn-primary text-white cursor-pointer"
+                    @click="onSubmit"
+                    >Send</a
+                >
+            </div>
             </div>
         </div>
     </div>
@@ -32,34 +33,26 @@ import InputField from './InputField';
 export default {
     components: {
         Toggle,
-        InputField
+        InputField,
     },
-    props : {
+    props: {
         notable_id: {
             type: Number,
-            required: true
+            required: true,
         },
         notable_type: {
             type: String,
-            required: true
-        }
+            required: true,
+        },
     },
     data() {
         return {
             isPrivate: false,
-            richText: true,
+            richText: false,
             newNote: '',
             notesCount: 0,
-            errors: []
+            errors: [],
         };
-    },
-    watch: {
-        isPrivate(nv, ov) {
-            console.log('isPrivate', nv, ov);
-        },
-        richText(nv, ov) {
-            console.log('richText', nv, ov);
-        },
     },
     computed: {},
     methods: {
@@ -72,7 +65,7 @@ export default {
                     notable_type: this.notable_type,
                 })
                 .then(({ data }) => {
-                    this.$emit('note-submit', data)
+                    this.$emit('note-submit', data);
                     this.newNote = '';
                 })
                 .catch(e => {
@@ -80,7 +73,7 @@ export default {
                         this.errors = e.response.data.errors.note;
                     }
                 });
-        }
+        },
     },
 };
 </script>

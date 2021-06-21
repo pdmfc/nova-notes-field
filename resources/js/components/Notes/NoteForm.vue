@@ -2,13 +2,11 @@
     <div class="flex flex-col">
         <toggle v-model="isPrivate" icon="private"></toggle>
         <toggle v-model="richText" icon="richText"></toggle>
-        <!-- <toggle v-model="richText"></toggle>
-        <toggle no-icons></toggle> -->
         <div class="flex flex-col">
             <div class="flex flex-col space-y-2 " v-if="errors.length > 0">
                 <p class="text-red-500" v-for="error in errors">{{ error }}</p>
             </div>
-            <div class="mt-1 flex flex-wrap flex-row space-x-4">
+            <div class="mt-1 flex flex-row space-x-4">
                 <input-field
                     class="flex-1"
                     v-model="newNote"
@@ -77,3 +75,5 @@ export default {
     },
 };
 </script>
+
+<style scoped src="../../../sass/field.css"></style>

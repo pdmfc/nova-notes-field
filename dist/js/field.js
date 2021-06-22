@@ -607,6 +607,12 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     value: {
       type: String
+    },
+    maxInputHeight: {
+      type: String,
+      "default": function _default() {
+        return '200px';
+      }
     }
   },
   methods: {
@@ -619,6 +625,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   beforeDestroy: function beforeDestroy() {
     document.removeEventListener("trix-change", this.handleChange);
+  },
+  computed: {
+    trixStyle: function trixStyle() {
+      return {
+        maxHeight: this.maxInputHeight,
+        overflowY: 'auto'
+      };
+    }
   }
 });
 
@@ -70948,7 +70962,7 @@ var render = function() {
             _vm.richText
               ? _c(
                   "div",
-                  { staticClass: "flex-shrink w-full" },
+                  { staticClass: "w-full" },
                   [
                     _c("trix-note", {
                       model: {
@@ -71148,7 +71162,10 @@ var render = function() {
         attrs: { type: "hidden", id: "input-trix", name: "content" }
       }),
       _vm._v(" "),
-      _c("trix-editor", { attrs: { input: "input-trix" } })
+      _c("trix-editor", {
+        style: _vm.trixStyle,
+        attrs: { input: "input-trix" }
+      })
     ],
     1
   )

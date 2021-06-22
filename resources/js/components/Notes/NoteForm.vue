@@ -7,7 +7,7 @@
                 <p class="text-red-500" v-for="error in errors">{{ error }}</p>
             </div>
             <div :class="[richText ? 'space-y-4' : 'space-x-4', 'mt-1 flex flex-wrap flex-row']">
-                <div v-if="richText" class="flex-shrink w-full" >
+                <div v-if="richText" class="w-full" >
                     <trix-note v-model="newNote"></trix-note>
                 </div>
                 <input-field v-else

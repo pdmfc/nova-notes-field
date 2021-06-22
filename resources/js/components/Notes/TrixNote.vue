@@ -1,7 +1,7 @@
 <template>
     <div>
-        <input type="hidden" id="input-trix" name="content" ref="inputEl" >
-        <trix-editor input="input-trix"></trix-editor>
+        <input type="hidden" id="input-trix" name="content" ref="inputEl" />
+        <trix-editor input="input-trix" :style="trixStyle"></trix-editor>
     </div>
 </template>
 <script>
@@ -9,6 +9,12 @@ export default {
     props: {
         value: {
             type: String
+        },
+        maxInputHeight: {
+            type: String,
+            default() {
+                return '200px'
+            }
         }
     },
     methods:{
@@ -21,6 +27,14 @@ export default {
     },
     beforeDestroy(){
         document.removeEventListener("trix-change",this.handleChange)
+    },
+    computed: {
+        trixStyle() {
+            return {
+                maxHeight: this.maxInputHeight,
+                overflowY: 'auto'
+            }
+        }
     }
 }
 </script>

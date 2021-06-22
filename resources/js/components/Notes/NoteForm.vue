@@ -1,5 +1,5 @@
 <template lang="html">
-    <form class="flex flex-col">
+    <div class="flex flex-col">
         <toggle v-model="isPrivate" icon="private"></toggle>
         <toggle v-model="richText" icon="richText"></toggle>
         <div class="flex flex-col">
@@ -24,7 +24,7 @@
                 >
             </div>
         </div>
-    </form>
+    </div>
 </template>
 
 <script>

@@ -70637,7 +70637,7 @@ var render = function() {
           "div",
           {
             staticClass:
-              "bg-white flex-1 flex flex-col rounded-lg divide-y divide-gray-200"
+              "bg-white flex-1 flex flex-col rounded-lg overflow-hidden divide-y divide-gray-200"
           },
           [
             _c(

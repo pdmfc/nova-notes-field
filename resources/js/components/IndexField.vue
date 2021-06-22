@@ -7,7 +7,7 @@
     >
         <div class="flex">
             <div
-                class="bg-white flex-1 flex flex-col rounded-lg divide-y divide-gray-200"
+                class="bg-white flex-1 flex flex-col rounded-lg overflow-hidden divide-y divide-gray-200"
             >
                 <div
                     class="overflow-y-auto flex-grow flex px-4 py-5"

@@ -22,6 +22,7 @@ class Note extends Model
         'personal',
         'notable_type',
         'notable_id',
+        'as_html'
     ];
 
     /**

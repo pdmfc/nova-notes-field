@@ -27,6 +27,7 @@ class NoteController extends Controller
             'note' => $validated['note'],
             'notable_id' => $validated['notable_id'],
             'notable_type' => $validated['notable_type'],
+            'as_html' => $validated['as_html'],
             'created_by' => auth()->user()->id
         ])->load('author');
 

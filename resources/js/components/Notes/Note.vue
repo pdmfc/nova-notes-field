@@ -5,7 +5,10 @@
           </div>
           <div>
             <h4 class="text-lg font-semibold">{{ data.author.name }}</h4>
-              <p class="my-3 ">{{ data.note }}</p>
+
+              <p class="trix-content my-3" v-if="data.as_html" v-html="data.note"></p>
+              <p class="my-3" v-else>{{ data.note }}</p>
+
               <p class="text-gray-500" >{{ createdAt }}</p>
             <div class="mt-6 flex">
               <div class="mr-4 flex-shrink-0">

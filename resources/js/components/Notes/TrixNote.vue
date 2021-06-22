@@ -1,7 +1,7 @@
 <template>
     <div>
         <input type="hidden" id="input-trix" name="content" ref="inputEl" />
-        <trix-editor input="input-trix" :style="trixStyle"></trix-editor>
+        <trix-editor class="trix-content" input="input-trix" :style="trixStyle"></trix-editor>
     </div>
 </template>
 <script>

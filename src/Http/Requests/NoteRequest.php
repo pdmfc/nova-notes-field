@@ -27,6 +27,8 @@ class NoteRequest extends FormRequest
             'note' => 'required',
             'notable_id' => 'required|numeric',
             'notable_type' => 'required',
+            'personal' => 'required|boolean',
+            'as_html' => 'required|boolean'
         ];
     }
 }

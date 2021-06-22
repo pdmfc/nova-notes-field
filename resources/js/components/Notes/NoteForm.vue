@@ -66,6 +66,8 @@ export default {
                     note: this.newNote,
                     notable_id: this.notable_id,
                     notable_type: this.notable_type,
+                    personal: this.isPrivate,
+                    as_html: this.richText
                 })
                 .then(({ data }) => {
                     this.$emit('note-submit', data);

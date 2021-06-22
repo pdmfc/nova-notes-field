@@ -6,8 +6,8 @@
             <div class="flex flex-col space-y-2 " v-if="errors.length > 0">
                 <p class="text-red-500" v-for="error in errors">{{ error }}</p>
             </div>
-            <div class="mt-1 flex flex-row space-x-4">
-                <div v-if="richText" class="flex-1" >
+            <div :class="[richText ? 'space-y-4' : 'space-x-4', 'mt-1 flex flex-wrap flex-row']">
+                <div v-if="richText" class="flex-shrink w-full" >
                     <trix-note v-model="newNote"></trix-note>
                 </div>
                 <input-field v-else
@@ -17,7 +17,7 @@
                     :hasError="errors.length > 0"
                 ></input-field>
                 <a
-                    class="flex-shrink-0 btn btn-default btn-primary text-white cursor-pointer"
+                    class="flex-shrink-0 justify-self-center self-center btn btn-default btn-primary text-white cursor-pointer"
                     @click="onSubmit"
                 >Send</a
                 >

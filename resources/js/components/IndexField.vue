@@ -8,15 +8,14 @@
         <div class="flex">
             <div
                 class="bg-white flex-1 flex flex-col rounded-lg overflow-hidden divide-y divide-gray-200"
+                style="width: 650px; max-width:6500px; height: 600px; max-height: 600px;"
             >
                 <div
                     class="overflow-y-auto flex-grow flex px-4 py-5"
-                    style="width: 400px; height: 400px; max-height: 400px; max-width:400px;"
                 >
                     <notes :notes="notes"></notes>
                 </div>
                 <div class="bg-gray-50 p-4">
-                    <!-- TODO: fix popper positioning when Trix is used -->
                     <note-form
                         @note-submit="pushNotes($event)"
                         :notable_id="field.notable_id"

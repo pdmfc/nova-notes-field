@@ -600,6 +600,9 @@ video {
 .flex-shrink-0 {
 	flex-shrink: 0;
 }
+.flex-shrink {
+	flex-shrink: 1;
+}
 .flex-grow {
 	flex-grow: 1;
 }
@@ -622,6 +625,9 @@ video {
 }
 .flex-col {
 	flex-direction: column;
+}
+.flex-wrap {
+	flex-wrap: wrap;
 }
 .items-center {
 	align-items: center;
@@ -652,6 +658,9 @@ video {
 }
 .self-center {
 	align-self: center;
+}
+.justify-self-center {
+	justify-self: center;
 }
 .overflow-hidden {
 	overflow: hidden;

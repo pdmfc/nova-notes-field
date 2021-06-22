@@ -267,7 +267,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     value: {
@@ -70747,9 +70746,10 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("input", {
-    staticClass:
-      "py-2 px-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-md border",
-    class: _vm.errorClass,
+    class: [
+      _vm.errorClass,
+      "py-2 px-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-md border"
+    ],
     attrs: { type: "text", placeholder: _vm.placeholder },
     domProps: { value: _vm.value },
     on: {

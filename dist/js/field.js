@@ -187,6 +187,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -605,17 +606,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    value: {
+      type: String
+    }
+  },
   methods: {
-    setTextToTrix: function setTextToTrix() {
-      this.text = this.$refs.inputEl.value;
-      this.$emit('change', this.text);
+    handleChange: function handleChange() {
+      this.$emit('input', this.$refs.inputEl.value);
     }
   },
   mounted: function mounted() {
-    document.addEventListener("trix-change", this.setTextToTrix);
+    document.addEventListener("trix-change", this.handleChange);
   },
   beforeDestroy: function beforeDestroy() {
-    document.removeEventListener("trix-change", this.setTextToTrix);
+    document.removeEventListener("trix-change", this.handleChange);
   }
 });
 
@@ -70944,10 +70949,12 @@ var render = function() {
                   { staticClass: "flex-1" },
                   [
                     _c("trix-note", {
-                      on: {
-                        change: function($event) {
-                          _vm.newNote = $event
-                        }
+                      model: {
+                        value: _vm.newNote,
+                        callback: function($$v) {
+                          _vm.newNote = $$v
+                        },
+                        expression: "newNote"
                       }
                     })
                   ],

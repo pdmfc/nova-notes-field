@@ -6,17 +6,21 @@
 </template>
 <script>
 export default {
+    props: {
+        value: {
+            type: String
+        }
+    },
     methods:{
-        setTextToTrix(){
-           this.text=this.$refs.inputEl.value
-           this.$emit('change', this.text)
+        handleChange(){
+           this.$emit('input', this.$refs.inputEl.value)
         }
     },
     mounted(){
-        document.addEventListener("trix-change",this.setTextToTrix)
+        document.addEventListener("trix-change",this.handleChange)
     },
     beforeDestroy(){
-        document.removeEventListener("trix-change",this.setTextToTrix)
+        document.removeEventListener("trix-change",this.handleChange)
     }
 }
 </script>

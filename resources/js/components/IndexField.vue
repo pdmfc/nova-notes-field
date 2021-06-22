@@ -16,6 +16,7 @@
                     <notes :notes="notes"></notes>
                 </div>
                 <div class="bg-gray-50 p-4">
+                    <!-- TODO: fix popper positioning when Trix is used -->
                     <note-form
                         @note-submit="pushNotes($event)"
                         :notable_id="field.notable_id"

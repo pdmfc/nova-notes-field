@@ -8,7 +8,7 @@
             </div>
             <div class="mt-1 flex flex-row space-x-4">
                 <div v-if="richText" class="flex-1" >
-                    <trix-note @change="newNote=$event"></trix-note>
+                    <trix-note v-model="newNote"></trix-note>
                 </div>
                 <input-field v-else
                     class="flex-1"

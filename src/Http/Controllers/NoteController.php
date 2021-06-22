@@ -14,6 +14,11 @@ class NoteController extends Controller
     {
         $notes = Note::where('notable_type', $request->input('notable_type'))
             ->where('notable_id', $request->input('notable_id'))
+            ->where('personal', false)
+            ->orWhere(function ($query){
+                $query->where('personal', true);
+                $query->where('created_by', auth()->user()->id);
+            })
             ->with('author')
             ->get();
 
@@ -27,6 +32,7 @@ class NoteController extends Controller
             'note' => $validated['note'],
             'notable_id' => $validated['notable_id'],
             'notable_type' => $validated['notable_type'],
+            'personal' => $validated['personal'],
             'as_html' => $validated['as_html'],
             'created_by' => auth()->user()->id
         ])->load('author');

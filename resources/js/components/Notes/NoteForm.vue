@@ -10,6 +10,7 @@
                 <div v-if="richText" class="w-full" >
                     <trix-note v-model="newNote"></trix-note>
                 </div>
+                <!-- TODO: fix bug - refresh page on enter? -->
                 <input-field v-else
                     class="flex-1"
                     v-model="newNote"

@@ -14,14 +14,15 @@ class NoteController extends Controller
     {
         $notes = Note::where('notable_type', $request->input('notable_type'))
             ->where('notable_id', $request->input('notable_id'))
-            ->where('personal', false)
-            ->orWhere(function ($query){
-                $query->where('personal', true);
-                $query->where('created_by', auth()->user()->id);
+            ->where(function ($query) use ($request) {
+                $query->where('personal', false)
+                    ->orWhere(function ($query) use ($request) {
+                        $query->where('personal', true)
+                                ->where('created_by', auth()->user()->id);
+                    });
             })
             ->with('author')
             ->get();
-
         return response()->json($notes);
     }
 

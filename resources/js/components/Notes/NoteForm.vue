@@ -1,7 +1,21 @@
 <template lang="html">
-    <div class="flex flex-col">
-        <toggle v-model="isPrivate" icon="private"></toggle>
-        <toggle v-model="richText" icon="richText"></toggle>
+    <div class="flex flex-col space-y-2">
+        <toggle v-model="isPrivate">
+            <template #iconOff>
+                <icon-eye-solid />
+            </template>
+            <template #iconOn>
+                <icon-eye-off />
+            </template>
+        </toggle>
+        <toggle v-model="richText">
+            <template #iconOff>
+                <icon-doc-text-solid />
+            </template>
+            <template #iconOn>
+                <icon-doc-text />
+            </template>
+        </toggle>
         <div class="flex flex-col">
             <div class="flex flex-col space-y-2 " v-if="errors.length > 0">
                 <p class="text-red-500" v-for="error in errors">{{ error }}</p>
@@ -31,13 +45,20 @@
 import Toggle from './Toggle.vue';
 import InputField from './InputField.vue';
 import TrixNote from './TrixNote.vue';
+import IconEyeSolid from '../icons/IconEyeSolid.vue';
+import IconEyeOff from '../icons/IconEyeOff.vue';
+import IconDocTextSolid from '../icons/IconDocTextSolid.vue';
+import IconDocText from '../icons/IconDocText.vue';
 
 export default {
     components: {
         Toggle,
         InputField,
         TrixNote,
-
+        IconEyeOff,
+        IconEyeSolid,
+        IconDocText,
+        IconDocTextSolid
     },
     props: {
         notable_id: {

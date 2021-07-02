@@ -20,7 +20,7 @@ class FieldServiceProvider extends ServiceProvider
     {
         Nova::serving(function (ServingNova $event) {
             Nova::script('nova-notes-field', __DIR__ . '/../dist/js/field.js');
-            Nova::style('nova-notes-field', __DIR__ . '/../dist/css/field.css');
+//            Nova::style('nova-notes-field', __DIR__ . '/../dist/css/field.css');
         });
 
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');

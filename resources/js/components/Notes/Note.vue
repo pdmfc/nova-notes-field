@@ -9,7 +9,7 @@
         </div>
         <div>
             <div class="flex space-x-2">
-                <h4 class="text-lg font-semibold">{{ data.author.name }}</h4>
+                <h4 class="text-lg font-semibold">{{ data.author ? data.author.name : '-' }}</h4>
                 <icon-eye-off v-if="data.personal" />
             </div>
 
@@ -64,7 +64,7 @@ export default {
                 notable_type: this.data.notable_type,
                 notable_id: this.data.notable_id,
                 reply_to_id: this.data.id,
-                reply_to_name: this.data.author.name
+                reply_to_name: this.data.author ? this.data.author.name : '-'
             });
         }
     },

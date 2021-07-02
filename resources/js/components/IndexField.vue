@@ -106,7 +106,15 @@ export default {
                 });
         },
         pushNotes(data) {
-            this.notes = data;
+            if (data.notable_type === 'PDMFC\\NovaNotesField\\Models\\Note') {
+                const parentNote = this.notes.find(note => note.id === data.notable_id)
+                if (parentNote) {
+                    parentNote.notes.push(data)
+                }
+            } else {
+                this.notes.push(data)
+            }
+
             this.notesCount = this.notes.length;
             this.notable_id = this.field.notable_id;
             this.notable_type = this.field.notable_type;

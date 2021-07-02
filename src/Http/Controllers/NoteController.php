@@ -17,21 +17,19 @@ class NoteController extends Controller
 
     public function store(NoteRequest $request): JsonResponse
     {
-
-        if($request->validated()['reply_to_id'] != null) {
+        if($request->input('reply_to_id')) {
             $note = Note::find($request->input('reply_to_id'));
-            $noteData = collect($request->validated())->except('reply_to_id')->toArray();
-            $newNote = Note::create($noteData);
-            return response()->json($note->notes()->save($newNote)
-                    ->whereNotableTypeAndId($request->input('notable_type'), $request->input('notable_id'))
-                    ->with('author', 'notes')
-                    ->get());
+
+            $noteData = collect($request->validated())->except('reply_to_id', 'notable_type', 'notable_id')
+                ->toArray();
+
+            $newNote = $note->notes()->create($noteData)
+                ->load('author', 'notes');
+
+            return response()->json($newNote);
         }
 
-        return response()->json(Note::create($request->validated())
-                    ->whereNotableTypeAndId($request->input('notable_type'), $request->input('notable_id'))
-                    ->get()
-                    ->load('author', 'notes'));
+        return response()->json(Note::create($request->validated())->load('author', 'notes'));
     }
 
     // public function store(NoteRequest $request): JsonResponse

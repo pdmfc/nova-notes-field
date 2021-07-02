@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use App\Models\User;
 
 class Note extends Model
@@ -48,6 +49,12 @@ class Note extends Model
         });
     }
 
+    public function scopeWhereNotableTypeAndId($query, $type, $id)
+    {
+        return $query->where('notable_type', $type)
+        ->where('notable_id', $id);
+    }
+
     /**
      * @return MorphTo
      */
@@ -56,15 +63,13 @@ class Note extends Model
         return $this->morphTo();
     }
 
+    public function notes()
+    {
+        return $this->morphMany(Note::class, 'notable')->with('author');
+    }
+
     public function author()
     {
             return $this->belongsTo(User::class, 'created_by');
     }
-
-    public function scopeWhereNotableTypeAndId($query, $type, $id)
-    {
-        return $query->where('notable_type', $type)
-        ->where('notable_id', $id);
-    }
-
 }

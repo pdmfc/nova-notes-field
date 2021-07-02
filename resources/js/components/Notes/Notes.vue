@@ -4,7 +4,7 @@
                 <h2 class="text-xl font-semibold opacity-50">No notes found...</h2>
             </div>
             <ul class="space-y-4 flex-grow">
-                <note v-for="note in notes" :data="note" :key="note.note"></note>
+                <note v-for="note in notes" :data="note" :key="note.note" @reply-to="handleReplyTo($event)"></note>
             </ul>
         </div>
 </template>
@@ -24,6 +24,9 @@ export default {
         },
     },
     methods: {
+        handleReplyTo(data) {
+            this.$emit('reply-to', data)
+        }
     }
 }
 </script>

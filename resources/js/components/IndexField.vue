@@ -13,13 +13,16 @@
                 <div
                     class="overflow-y-auto flex-grow flex px-4 py-5"
                 >
-                    <notes :notes="notes"></notes>
+                    <notes :notes="notes" @reply-to="defineFormData($event)"></notes>
                 </div>
                 <div class="bg-gray-50 p-4">
                     <note-form
                         @note-submit="pushNotes($event)"
-                        :notable_id="field.notable_id"
-                        :notable_type="field.notable_type"
+                        @cancel-reply="defineFormData"
+                        :notable_id="notable_id"
+                        :notable_type="notable_type"
+                        :reply_to_id="reply_to_id"
+                        :reply_to_name="reply_to_name"
                     ></note-form>
                 </div>
             </div>
@@ -72,11 +75,17 @@ export default {
             newNote: '',
             notes: [],
             loaded: false,
-            notesCount: 0
+            notesCount: 0,
+            notable_type: '',
+            notable_id: '',
+            reply_to_id: '',
+            reply_to_name: ''
         };
     },
     mounted() {
         this.notesCount = this.field.value;
+        this.notable_id = this.field.notable_id;
+        this.notable_type = this.field.notable_type;
     },
     methods: {
         loadNotes() {
@@ -97,13 +106,20 @@ export default {
                 });
         },
         pushNotes(data) {
-            this.notes.push(data)
-            this.notesCount = this.notes.length
+            this.notes = data;
+            this.notesCount = this.notes.length;
+            this.notable_id = this.field.notable_id;
+            this.notable_type = this.field.notable_type;
+            this.reply_to = '';
+        },
+        defineFormData(data) {
+            this.notable_id = data ? data.notable_id : this.field.notable_id;
+            this.notable_type = data ? data.notable_type : this.field.notable_type;
+            this.reply_to_id = data ? data.reply_to_id : '';
+            this.reply_to_name = data ? data.reply_to_name : '';
         }
-    },
+    }
 };
 </script>
-
-<style scoped></style>
 
 <style scoped src="../../sass/field.css"></style>

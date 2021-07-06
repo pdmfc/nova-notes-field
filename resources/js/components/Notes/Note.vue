@@ -1,9 +1,9 @@
 <template>
-    <li class="flex text-left bg-indigo overflow-hidden px-4 py-4">
-        <div class="mr-4 flex-shrink-0">
+    <li class=" bg-blue-50 flex text-left bg-indigo overflow-hidden px-4 py-4">
+        <div class=" mr-4 flex-shrink-0">
             <img
                 class="inline-block h-16 w-16 rounded-full"
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                src="https://www.gravatar.com/avatar/8441b1210b3a6c05b68c9f4c315f1590?s=300"
                 alt=""
             />
         </div>

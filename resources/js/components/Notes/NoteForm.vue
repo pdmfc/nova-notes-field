@@ -11,7 +11,7 @@
             <div class="flex flex-col space-y-2 " v-if="errors.length > 0">
                 <p class="text-red-500" v-for="error in errors">{{ error }}</p>
             </div>
-            <div :class="[richText ? 'space-y-4' : 'space-x-4', 'mt-1 flex flex-wrap flex-row']">
+            <div class="mt-1 flex flex-wrap flex-row">
                 <div v-if="richText" class="w-full" >
                     <trix-note v-model="newNote"></trix-note>
                 </div>
@@ -21,11 +21,11 @@
                     @enter="onSubmit"
                     :hasError="errors.length > 0"
                 ></input-field>
-                <span @click="onSubmit" :class="[richText ? 'order-last ml-auto' : '','flex-shrink-0 justify-self-center self-center cursor-pointer']" @mouseover="isHovered=true"  @mouseleave="isHovered=false">
+                <span @click="onSubmit" :class="[richText ? 'order-last ml-auto' : 'ml-4','justify-self-center self-center justify-items-center cursor-pointer']" @mouseover="isHovered=true"  @mouseleave="isHovered=false">
                         <icon-paper-airplane v-if="!isHovered"/>
                         <icon-paper-airplane-solid v-else/>
                 </span>
-                <div :class="[{'w-full justify-items-start p-0':!richText}, 'flex space-x-2 my-2']">
+                <div :class="[{'w-full mx-0':!richText}, 'flex space-x-2 my-2']">
                     <toggle v-model="isPrivate">
                         <template #iconOff>
                             <icon-eye-solid />

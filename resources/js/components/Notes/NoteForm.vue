@@ -1,22 +1,5 @@
 <template lang="html">
     <div class="flex flex-col space-y-2">
-        <toggle v-model="isPrivate">
-            <template #iconOff>
-                <icon-eye-solid />
-            </template>
-            <template #iconOn>
-                <icon-eye-off />
-            </template>
-        </toggle>
-        <toggle v-model="richText">
-            <template #iconOff>
-                <icon-doc-text-solid />
-            </template>
-            <template #iconOn>
-                <icon-doc-text />
-            </template>
-        </toggle>
-
         <div v-if="reply_to_id != ''" class="flex space-x-2">
             <p class="self-center font-semibold">Replying to {{ reply_to_name }}</p>
             <span @click.stop="emitCancelReply" class="self-center cursor-pointer dim">
@@ -28,7 +11,7 @@
             <div class="flex flex-col space-y-2 " v-if="errors.length > 0">
                 <p class="text-red-500" v-for="error in errors">{{ error }}</p>
             </div>
-            <div :class="[richText ? 'space-y-4' : 'space-x-4', 'mt-1 flex fleix-wrap flex-row']">
+            <div :class="[richText ? 'space-y-4' : 'space-x-4', 'mt-1 flex flex-wrap flex-row']">
                 <div v-if="richText" class="w-full" >
                     <trix-note v-model="newNote"></trix-note>
                 </div>
@@ -38,12 +21,31 @@
                     @enter="onSubmit"
                     :hasError="errors.length > 0"
                 ></input-field>
-                <a
-                    class="flex-shrink-0 justify-self-center self-center btn btn-default btn-primary text-white cursor-pointer"
-                    @click="onSubmit"
-                >Send</a
-                >
+                <span @click="onSubmit" :class="[richText ? 'order-last ml-auto' : '','flex-shrink-0 justify-self-center self-center cursor-pointer']" @mouseover="isHovered=true"  @mouseleave="isHovered=false">
+                        <icon-paper-airplane v-if="!isHovered"/>
+                        <icon-paper-airplane-solid v-else/>
+                </span>
+                <div :class="[{'w-full justify-items-start p-0':!richText}, 'flex space-x-2 my-2']">
+                    <toggle v-model="isPrivate">
+                        <template #iconOff>
+                            <icon-eye-solid />
+                        </template>
+                        <template #iconOn>
+                            <icon-eye-off />
+                        </template>
+                    </toggle>
+                    <toggle v-model="richText">
+                        <template #iconOff>
+                            <icon-doc-text-solid />
+                        </template>
+                        <template #iconOn>
+                            <icon-doc-text />
+                        </template>
+                    </toggle>
+                </div>
+
             </div>
+
         </div>
     </div>
 </template>
@@ -57,6 +59,8 @@ import IconEyeOff from '../icons/IconEyeOff.vue';
 import IconDocTextSolid from '../icons/IconDocTextSolid.vue';
 import IconDocText from '../icons/IconDocText.vue';
 import XCircle from '../icons/XCircle.vue';
+import IconPaperAirplane from '../icons/IconPaperAirplane.vue';
+import IconPaperAirplaneSolid from '../icons/IconPaperAirplaneSolid.vue';
 
 export default {
     components: {
@@ -67,13 +71,16 @@ export default {
         IconEyeSolid,
         IconDocText,
         IconDocTextSolid,
-        XCircle
+        XCircle,
+        IconPaperAirplane,
+        IconPaperAirplaneSolid,
     },
     props: {
         notable_id: {
             type: Number,
             required: true
         },
+
         notable_type: {
             type: String,
             required: true
@@ -92,6 +99,7 @@ export default {
             newNote: '',
             notesCount: 0,
             errors: [],
+            isHovered: false
         };
     },
     methods: {

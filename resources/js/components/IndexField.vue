@@ -13,7 +13,7 @@
                 <div
                     class="overflow-y-auto flex-grow flex px-4 py-5"
                 >
-                    <notes :notes="notes" @reply-to="defineFormData($event)"></notes>
+                    <notes :notes="notes" @reply-to="defineFormData($event)" @delete-note="openDeleteModal($event)"></notes>
                 </div>
                 <div class="bg-gray-50 p-4">
                     <note-form
@@ -49,6 +49,11 @@
                 {{ notesCount }}
             </div>
         </div>
+        <delete-resource-modal
+            v-if="deleteModalOpen"
+            @confirm="confirmDelete"
+            @close="closeDeleteModal">
+        </delete-resource-modal>
     </popper>
 </template>
 
@@ -79,7 +84,9 @@ export default {
             notable_type: '',
             notable_id: '',
             reply_to_id: '',
-            reply_to_name: ''
+            reply_to_name: '',
+            deleteModalOpen: false,
+            deleteId: null
         };
     },
     mounted() {
@@ -125,8 +132,38 @@ export default {
             this.notable_type = data ? data.notable_type : this.field.notable_type;
             this.reply_to_id = data ? data.reply_to_id : '';
             this.reply_to_name = data ? data.reply_to_name : '';
+        },
+        confirmDelete() {
+            Nova.request()
+                .delete('/nova-vendor/notes-field/delete', {
+                    params: {
+                        id: this.deleteId
+                    }
+                })
+                .then(() => {
+                    this.notes.forEach((note, index) => {
+                        if (note.id === this.deleteId) {
+                            this.notes.splice(index, 1)
+                        } else {
+                            let childIndex = note.notes.findIndex(note => note.id === this.deleteId)
+                            if (childIndex != -1) {
+                                this.notes[index].notes.splice(childIndex, 1)
+                            }
+                        }
+                    })
+                    this.notesCount = this.notes.length
+                    this.closeDeleteModal()
+                });
+        },
+        openDeleteModal(deleteId) {
+            this.deleteModalOpen = true
+            this.deleteId = deleteId
+        },
+        closeDeleteModal() {
+            this.deleteModalOpen = false
+            this.deleteId = null
         }
-    }
+    },
 };
 </script>
 

@@ -20,28 +20,31 @@
                     v-model="newNote"
                     @enter="onSubmit"
                     :hasError="errors.length > 0"
+                    :focused="reply_to_id != ''"
                 ></input-field>
-                <span @click="onSubmit" :class="[richText ? 'order-last ml-auto' : 'ml-4','justify-self-center self-center justify-items-center cursor-pointer']" @mouseover="isHovered=true"  @mouseleave="isHovered=false">
-                        <icon-paper-airplane v-if="!isHovered"/>
-                        <icon-paper-airplane-solid v-else/>
-                </span>
-                <div :class="[{'w-full mx-0':!richText}, 'flex space-x-2 my-2']">
-                    <toggle v-model="isPrivate">
-                        <template #iconOff>
-                            <icon-eye-solid />
-                        </template>
-                        <template #iconOn>
-                            <icon-eye-off />
-                        </template>
-                    </toggle>
-                    <toggle v-model="richText">
-                        <template #iconOff>
-                            <icon-doc-text-solid />
-                        </template>
-                        <template #iconOn>
-                            <icon-doc-text />
-                        </template>
-                    </toggle>
+                <div class="w-full mx-0 flex my-2">
+                    <div class="flex space-x-2">
+                        <toggle v-model="isPrivate">
+                            <template #iconOff>
+                                <icon-eye-solid />
+                            </template>
+                            <template #iconOn>
+                                <icon-eye-off />
+                            </template>
+                        </toggle>
+                        <toggle v-model="richText">
+                            <template #iconOff>
+                                <icon-doc-text-solid />
+                            </template>
+                            <template #iconOn>
+                                <icon-doc-text />
+                            </template>
+                        </toggle>
+                    </div>
+                    <span @click="onSubmit" class="self-center ml-auto cursor-pointer" @mouseover="isHovered=true"  @mouseleave="isHovered=false">
+                            <icon-paper-airplane v-if="!isHovered"/>
+                            <icon-paper-airplane-solid v-else/>
+                    </span>
                 </div>
 
             </div>
@@ -115,6 +118,7 @@ export default {
                     reply_to_id: this.reply_to_id
                 })
                 .then(({ data }) => {
+                    console.log(data);
                     data.reply_to_id = this.reply_to_id ? this.reply_to_id : undefined;
                     this.$emit('note-submit', data);
                     this.newNote = '';

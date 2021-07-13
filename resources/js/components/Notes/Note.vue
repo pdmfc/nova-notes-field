@@ -1,5 +1,5 @@
 <template>
-    <li class=" bg-blue-50 flex text-left bg-indigo overflow-hidden px-4 py-4">
+    <li class="flex text-left bg-indigo overflow-hidden px-4 py-4 w-full">
         <div class=" mr-4 flex-shrink-0">
             <img
                 class="inline-block h-16 w-16 rounded-full"
@@ -7,10 +7,15 @@
                 alt=""
             />
         </div>
-        <div>
-            <div class="flex space-x-2">
+        <div class="w-full">
+            <div class="flex">
                 <h4 class="text-lg font-semibold">{{ data.author ? data.author.name : '-' }}</h4>
-                <icon-eye-off v-if="data.personal" />
+                <icon-eye-off v-if="data.personal" class="mx-2" />
+                <button @click="handleDeleteNote(data.id)" v-if="data.authorizedToDelete" class="ml-auto appearance-none cursor-pointer text-70 hover:text-primary">
+                    <icon>
+                        <icon-delete></icon-delete>
+                    </icon>
+                </button>
             </div>
 
             <p
@@ -27,7 +32,7 @@
             </div>
 
             <div v-if="!isReply" v-for="note in data.notes" class="mt-6 flex">
-                <note :data=note :key="note.note"></note>
+                <note :data=note :key="note.note" @delete-note="handleDeleteNote(note.id)"></note>
             </div>
         </div>
 
@@ -66,6 +71,9 @@ export default {
                 reply_to_id: this.data.id,
                 reply_to_name: this.data.author ? this.data.author.name : '-'
             });
+        },
+        handleDeleteNote(noteId) {
+            this.$emit('delete-note', noteId);
         }
     },
     computed: {

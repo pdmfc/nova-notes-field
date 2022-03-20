@@ -32,6 +32,11 @@ class NoteController extends Controller
         return response()->json(Note::create($request->validated())->load('author', 'notes'));
     }
 
+    //DELETE -> DESTROY
+
+
+    //EDIT 
+
     // public function store(NoteRequest $request): JsonResponse
     // {
     //     if($request->validated()['reply_to_id'] != null){

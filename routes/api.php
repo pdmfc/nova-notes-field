@@ -16,3 +16,8 @@ use PDMFC\NovaNotesField\Http\Controllers\NoteController;
 
 Route::get('', [NoteController::class, 'index']);
 Route::post('new', [NoteController::class, 'store']);
+
+//DELETE
+
+
+//EDIT

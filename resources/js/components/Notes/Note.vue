@@ -66,8 +66,19 @@ export default {
                 reply_to_id: this.data.id,
                 reply_to_name: this.data.author ? this.data.author.name : '-'
             });
-        }
+        },
+
+        //Edit
+        onEdit(){
+
+        },
+
+        //Delete
+        onDelete(){
+
+        },
     },
+
     computed: {
         createdAt() {
             return `${moment(this.data.created_at).fromNow()} - ${moment(

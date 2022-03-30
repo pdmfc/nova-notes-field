@@ -86,7 +86,7 @@ export default {
         alert('Opened on edit') 
         //get NOTE ID 
         console.log(this.data) 
-        Nova.request().puche('/nova-vendor/notes-field/'+this.data.id).then(response => { 
+        Nova.request().put('/nova-vendor/notes-field/'+this.data.id).then(response => { 
         this.$toasted.show('It worked!', { type: 'success' }) 
         if(!isReply){ 
         this.$emit('updateReply',{ 

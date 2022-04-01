@@ -4,7 +4,10 @@
                 <h2 class="text-xl font-semibold opacity-50">No notes found...</h2>
             </div>
             <ul class="space-y-4 flex-grow">
-                <note v-for="note in notes" :data="note" :key="note.note" @reply-to="handleReplyTo($event)"></note>
+                <note v-for="note in notes" :data="note" :key="note.note"
+                      @reply-to="handleReplyTo($event)"
+                      @delete-note="deleteNote"
+                ></note>
             </ul>
         </div>
 </template>
@@ -21,11 +24,14 @@ export default {
         notes: {
             type: Array,
             required: true
-        },
+        }
     },
     methods: {
         handleReplyTo(data) {
             this.$emit('reply-to', data)
+        },
+        deleteNote(data){
+            this.$emit('delete-note', data)
         }
     }
 }

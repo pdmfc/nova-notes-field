@@ -13,7 +13,10 @@
                 <div
                     class="overflow-y-auto flex-grow flex px-4 py-5"
                 >
-                    <notes :notes="notes" @reply-to="defineFormData($event)"></notes>
+                    <notes :notes="notes"
+                           @reply-to="defineFormData($event)"
+                           @delete-note="deleteNote"
+                    ></notes>
                 </div>
                 <div class="bg-gray-50 p-4">
                     <note-form
@@ -125,6 +128,17 @@ export default {
             this.notable_type = data ? data.notable_type : this.field.notable_type;
             this.reply_to_id = data ? data.reply_to_id : '';
             this.reply_to_name = data ? data.reply_to_name : '';
+        },
+
+        deleteNote(data){
+
+            let noteArray = data.isReply ? this.notes[this.notes.findIndex(note => note.id === data.notableID)].notes : this.notes
+
+            this.$delete(noteArray, noteArray.findIndex(note => note.id === data.dataID))
+
+            if(!data.isReply){
+                this.notesCount = this.notesCount - 1;
+            }
         }
     }
 };

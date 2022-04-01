@@ -119,6 +119,10 @@ export default {
                 });
 
         },
+        onUpdated() {  
+         //Upeded Edit 
+         }, 
+         
         emitCancelReply() {
             this.$emit('cancel-reply')
         }

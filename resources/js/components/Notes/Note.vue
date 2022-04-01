@@ -66,8 +66,44 @@ export default {
                 reply_to_id: this.data.id,
                 reply_to_name: this.data.author ? this.data.author.name : '-'
             });
-        }
+        },
+
+        onDelete(){ 
+              
+        //get NOTE ID 
+
+        console.log(this.data) 
+
+        Nova.request().delete('/nova-vendor/notes-field/'+this.data.id).then(response => { 
+               
+            this.$toasted.show('It worked!', { type: 'success' }) 
+
+        }) 
+
+        }, 
+
+    onEdit(){ 
+        alert('Opened on edit') 
+        //get NOTE ID 
+        console.log(this.data) 
+        Nova.request().puche('/nova-vendor/notes-field/'+this.data.id).then(response => { 
+        this.$toasted.show('It worked!', { type: 'success' }) 
+        if(!isReply){ 
+        this.$emit('updateReply',{ 
+        notable_type: this.data.notable_type, 
+        notable_id: this.data.notable_id, 
+        reply_to_id: this.data.id, 
+        reply_to_name: this.data.author ? this.data.author.name : '-' 
+        }) 
+        } 
+        }) 
+        //check personal status 
+        //display note 
+        //update changes 
+
     },
+        },
+
     computed: {
         createdAt() {
             return `${moment(this.data.created_at).fromNow()} - ${moment(

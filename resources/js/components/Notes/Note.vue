@@ -8,9 +8,20 @@
             />
         </div>
         <div>
+
             <div class="flex space-x-2">
                 <h4 class="text-lg font-semibold">{{ data.author ? data.author.name : '-' }}</h4>
-                <icon-eye-off v-if="data.personal" />
+                <icon-eye-off v-if="data.personal"/>
+
+                <!--EDIT-->
+                <a class="text-sm font-bold text-yellow-400 cursor-pointer"
+                   @click="onEdit"
+                >Edit</a>
+
+                <!--DELETE-->
+                <a class="text-sm font-bold text-red-500 cursor-pointer"
+                   @click="onDelete"
+                >Delete</a>
             </div>
 
             <p
@@ -18,6 +29,7 @@
                 v-if="data.as_html"
                 v-html="data.note"
             ></p>
+
             <p class="my-3" v-else>{{ data.note }}</p>
 
             <p class="text-gray-500">{{ createdAt }}</p>
@@ -27,10 +39,9 @@
             </div>
 
             <div v-if="!isReply" v-for="note in data.notes" class="mt-6 flex">
-                <note :data=note :key="note.note"></note>
+                <note :data=note :key="note.note" @delete-note="onDelete($event, true)"></note>
             </div>
         </div>
-
 
     </li>
 </template>
@@ -66,6 +77,29 @@ export default {
                 reply_to_id: this.data.id,
                 reply_to_name: this.data.author ? this.data.author.name : '-'
             });
+        },
+        onDelete(data, reply) {
+
+            if(!reply){
+                Nova.request().delete('/nova-vendor/notes-field/' + this.data.id).then(response => {
+                    this.$toasted.show('Note Removed', {type: 'success'})
+
+                    this.$emit('delete-note', {
+                        isReply: this.isReply,
+                        notableID: this.data.notable_id,
+                        dataID: this.data.id
+                    })
+                })
+            } else {
+                this.$emit('delete-note', data)
+            }
+        },
+        onEdit() {
+            //get NOTE ID
+            //check personal status
+            //check html status
+            //display note
+            //update changes
         }
     },
     computed: {

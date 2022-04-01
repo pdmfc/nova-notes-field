@@ -52,7 +52,7 @@ And
 
 **Yarn:**
 
-    yarn run watch
+    yarn watch
 OR
 
 **NPM:**

@@ -36,7 +36,20 @@ class NoteController extends Controller
         return response()->json(Note::create($request->validated())->load('author', 'notes'));
     }
 
-   
+    //DETELE NOTE
+    public  function destroy(Note $note): JsonResponse
+    { 
+        // aqui tem criar a logica de deletar a nota do banco de dados
+
+            if ($note->created_by === auth()->id()){
+               if ( $note->delete()){
+                return response()->json(['message'=>'susses']);
+               }
+            }   
+        // $note->delete();
+        return response()->json(['message'=>'failded']);
+
+    }
 
     //UPDATE NOTE
     public function update(NoteRequest $request): JsonResponse

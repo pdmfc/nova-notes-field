@@ -13,7 +13,11 @@
                 <div
                     class="overflow-y-auto flex-grow flex px-4 py-5"
                 >
-                    <notes :notes="notes" @reply-to="defineFormData($event)"></notes>
+                    <notes :notes="notes" 
+                    @reply-to="defineFormData($event)"
+                    @note-delete="deleteNote($event)"
+                    >
+                    </notes>
                 </div>
                 <div class="bg-gray-50 p-4">
                     <note-form

@@ -8,9 +8,21 @@
             />
         </div>
         <div>
+
             <div class="flex space-x-2">
-                <h4 class="text-lg font-semibold">{{ data.author ? data.author.name : '-' }}</h4>
-                <icon-eye-off v-if="data.personal" />
+                <h4 class="text-lg ">{{ data.author ? data.author.name : '-' }}</h4>
+                <icon-eye-off v-if="data.personal"/>
+
+                <!-- Button EDIT-->
+                <button @click="onEdit(data.id)" class="ml-auto appearance-none cursor-pointer text-70 hover:text-primary">
+                    Edit
+                </button>
+
+                <!-- Button DELETE-->
+                <button
+                      @click="onDelete(data.id)" class="ml-auto appearance-none cursor-pointer text-70 hover:text-primary" >
+                 Delete
+                </button>
             </div>
 
             <p
@@ -18,10 +30,11 @@
                 v-if="data.as_html"
                 v-html="data.note"
             ></p>
+
             <p class="my-3" v-else>{{ data.note }}</p>
 
             <p class="text-gray-500">{{ createdAt }}</p>
-
+            <!-- Bottun Replay -->
             <div v-if="!isReply" class="w-full my-1">
                 <a @click="handleReplyTo" class="no-underline dim text-primary font-bold cursor-pointer">Reply</a>
             </div>
@@ -29,6 +42,7 @@
             <div v-if="!isReply" v-for="note in data.notes" class="mt-6 flex">
                 <note :data=note :key="note.note"></note>
             </div>
+
         </div>
 
 
@@ -41,7 +55,7 @@ import IconEyeOff from '../icons/IconEyeOff.vue';
 
 export default {
     name: 'note',
-    components: {
+    components: { 
         IconEyeOff,
     },
     props: {
@@ -66,8 +80,40 @@ export default {
                 reply_to_id: this.data.id,
                 reply_to_name: this.data.author ? this.data.author.name : '-'
             });
-        }
+        },
+
+        onDelete(){
+            //get NOTE ID
+            console.log(this.data)
+            alert('Opened on delete')
+            Nova.request().delete('/nova-vendor/notes-field/'+this.data.id).then(response => { 
+
+                console.log("fez DELETE no backend, vai fazer emmit para o componente pai");
+
+                this.$toasted.show('Note Deleted!', { type: 'success' }); 
+
+                this.$emit('note-delete', {
+                    note_id: this.data.id,
+                });
+              });
+        },
+
+        onEdit(){
+            alert('Opened on edit')
+            //get NOTE ID
+            console.log(this.data)
+            Nova.request().put('/nova-vendor/notes-field/update/'+this.data.id).then(response => { //bug
+                     console.log("onEdit working!")
+                this.$toasted.show('It worked!', { type: 'success' })
+               
+            })
+           
+          
+        },
+
     },
+
+
     computed: {
         createdAt() {
             return `${moment(this.data.created_at).fromNow()} - ${moment(

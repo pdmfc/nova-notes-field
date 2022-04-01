@@ -22,7 +22,7 @@ class NoteRequest extends FormRequest
      * @return array
      */
     public function rules(): array
-    {
+    {   //Store
         return [
             'note' => 'required',
             'notable_id' => 'required|numeric',
@@ -31,5 +31,7 @@ class NoteRequest extends FormRequest
             'as_html' => 'required|boolean',
             'reply_to_id' => 'nullable|numeric'
         ];
+
+        //
     }
 }

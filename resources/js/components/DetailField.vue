@@ -2,7 +2,11 @@
     <!--    <panel-item :field="field" />-->
     <div>
         <h3 class="mb-4 text-lg font-semibold text-gray-900">Chat</h3>
-        <notes :notes="notes" @reply-to="defineFormData($event)"></notes>
+        <notes :notes="notes" 
+        @reply-to="defineFormData($event)"
+        @note-delete="deleteNote($event)"
+        ></notes>
+
         <note-form
             @note-submit="pushNotes($event)"
             @cancel-reply="defineFormData"
@@ -32,7 +36,8 @@ export default {
             notable_type: '',
             notable_id: '',
             reply_to_id: '',
-            reply_to_name: ''
+            reply_to_name: '',
+            note_id: '',
         };
     },
     mounted() {
@@ -67,6 +72,12 @@ export default {
             this.notable_type = data ? data.notable_type : this.field.notable_type;
             this.reply_to_id = data ? data.reply_to_id : '';
             this.reply_to_name = data ? data.reply_to_name : '';
+        },
+
+        deleteNote(data){
+           console.log(data) 
+           this.notes = this.notes.filter((item) => item !== data.note_id);
+    
         }
     }
 };

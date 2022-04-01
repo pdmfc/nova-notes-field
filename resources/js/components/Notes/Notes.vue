@@ -4,7 +4,15 @@
                 <h2 class="text-xl font-semibold opacity-50">No notes found...</h2>
             </div>
             <ul class="space-y-4 flex-grow">
-                <note v-for="note in notes" :data="note" :key="note.note" @reply-to="handleReplyTo($event)"></note>
+                <note 
+                v-for="note in notes" 
+                :data="note" 
+                :key="note.note" 
+                @reply-to="handleReplyTo($event)"
+                @reply-delete="handleNoteDelete($event)"
+                @reply-edit="handleEdit($event)"
+                >
+                </note>
             </ul>
         </div>
 </template>
@@ -26,9 +34,16 @@ export default {
     methods: {
         handleReplyTo(data) {
             this.$emit('reply-to', data)
-        }
-    }
-}
+        },
+        handleNoteDelete(data){
+            this.$emit("note-delete", data);
+        },
+        handleEdit(data){
+            this.$emit("note-edit", data);
+        }, 
+             
+    },
+};
 </script>
 
 <style scoped src="../../../sass/field.css"></style>

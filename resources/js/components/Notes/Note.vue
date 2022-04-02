@@ -11,6 +11,18 @@
             <div class="flex space-x-2">
                 <h4 class="text-lg font-semibold">{{ data.author ? data.author.name : '-' }}</h4>
                 <icon-eye-off v-if="data.personal" />
+
+                <!-- Button EDIT-->
+                <button @click="onEdit(data.id)" class="ml-auto appearance-none cursor-pointer text-70 hover:text-primary">
+                    Edit
+                </button>
+
+                <!-- Button DELETE-->
+                <button
+                      @click="onDelete(data.id)" class="ml-auto appearance-none cursor-pointer text-70 hover:text-primary" >
+                 Delete
+                </button>
+
             </div>
 
             <p
@@ -66,7 +78,35 @@ export default {
                 reply_to_id: this.data.id,
                 reply_to_name: this.data.author ? this.data.author.name : '-'
             });
-        }
+        },
+        
+        onDelete(){
+            //get NOTE ID
+            console.log(this.data)
+            alert('Opened on delete')
+            Nova.request().delete('/nova-vendor/notes-field/'+this.data.id).then(response => { 
+
+                console.log("Delete working, now go to parent component");
+
+                this.$toasted.show('Note Deleted!', { type: 'success' }); 
+
+                this.$emit('note-delete', {
+                    note_id: this.data.id,
+                });
+              });
+        },
+
+        onEdit(){
+            alert('Opened on edit')
+            //get NOTE ID
+            console.log(this.data)
+            Nova.request().put('/nova-vendor/notes-field/update/'+this.data.id).then(response => { //bug
+                     console.log("onEdit working!")
+                this.$toasted.show('It worked!', { type: 'success' })
+
+            })
+           
+        },
     },
     computed: {
         createdAt() {
@@ -75,6 +115,7 @@ export default {
             ).format('DD/MM/YY HH:mm')}`;
         },
     },
+
 };
 </script>
 
